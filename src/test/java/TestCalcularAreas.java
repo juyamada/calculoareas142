@@ -3,7 +3,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import calculodeareas.Main;
 
     public class TestCalcularAreas {
     
@@ -37,14 +40,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 
    }
    @Test
-   public void TesteEsfera(){
+   public void TesteEsfera1(){
     // Configura
     double resultadoEsperado = 113.10;
     double tolerancia = 0.1; // utilizei para compensar a diferença entre o resultado esperado e o resultado atual
 
     // Executa
     double resultadoAtual = CalcularAreas.Esfera(num4);
-    System.out.println("O volume da esfera é de: " + resultadoAtual + " m³.");
+    System.out.println("O volume da esfera1 é de: " + resultadoAtual + " m³.");
 
     // Valida
     assertEquals(resultadoEsperado, resultadoAtual, tolerancia);
@@ -78,7 +81,20 @@ import org.junit.jupiter.params.provider.CsvSource;
         //Valida
         assertEquals(Math.round(resultadoEsperado),Math.round(resultadoAtual));
         System.out.println("O volume do paralelepípedo2 é de " + resultadoAtual + " m³.");
+    }
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "csv/esfera.csv", numLinesToSkip = 1, delimiter = ',')
+    public void testeEsfera2(double raio, double resultadoEsperado, double tolerancia){
+        // Configura
+        // Dados de entrada e saída estão no csv
+    
+
+        // Executa
+        double resultadoAtual = Math.round(((4.0/3.0) * Math.PI * Math.pow(raio, 3)));
+
+        // Valida
+        assertEquals(resultadoEsperado, resultadoAtual, tolerancia);
     }
 
     
